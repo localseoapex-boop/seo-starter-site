@@ -20,8 +20,13 @@ import type { Location } from '../data/locations';
 import type { Service } from '../data/services';
 import { getOffice, primaryOffice, officeNodeId } from '../data/offices';
 import { SITE } from '../config/site';
-import { servicesForLocation, nearbyCities, isServiceAvailable } from '../lib/links';
-import { cityUrl, serviceUrl, locationServiceUrl, absoluteUrl } from '../lib/urls';
+import {
+  servicesForLocation,
+  nearbyCities,
+  isServiceAvailable,
+  subServicesForCategory,
+} from '../lib/links';
+import { cityUrl, locationServiceUrl, locationSubServiceUrl, absoluteUrl } from '../lib/urls';
 
 interface Props {
   location: Location;
@@ -49,6 +54,13 @@ const otherServiceLinks = servicesForLocation(location)
     label: `${s.name} in ${location.city}`,
     href: locationServiceUrl(location.slug, s.slug),
   }));
+
+// Sub-services in THIS category available in THIS city (req #6). This page only
+// exists when the category is offered here, so every sub-service is available.
+const subServiceLinks = subServicesForCategory(service.slug).map((sub) => ({
+  label: `${sub.name} in ${location.city}`,
+  href: locationSubServiceUrl(location.slug, service.slug, sub.slug),
+}));
 
 // The SAME service in nearby cities that also offer it (related locations).
 const nearbyServiceLinks = nearbyCities(location.slug)
@@ -92,6 +104,7 @@ const serviceSchema = {
       <slot />
     </div>
 
+    <InternalLinks title={`${service.name} services in ${location.city}`} links={subServiceLinks} />
     <InternalLinks title={`Other services in ${location.city}`} links={otherServiceLinks} />
     <InternalLinks title={`${service.name} in nearby cities`} links={nearbyServiceLinks} />
 

@@ -12,8 +12,8 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import InternalLinks from '../components/InternalLinks.astro';
 import { BUSINESS, SITE } from '../config/site';
 import type { Service } from '../data/services';
-import { relatedServices, locationsForService } from '../lib/links';
-import { serviceUrl, locationServiceUrl, absoluteUrl } from '../lib/urls';
+import { relatedServices, locationsForService, subServicesForCategory } from '../lib/links';
+import { serviceUrl, locationServiceUrl, subServiceUrl, absoluteUrl } from '../lib/urls';
 
 interface Props {
   service: Service;
@@ -34,6 +34,13 @@ const crumbs = [
 const areaLinks = locationsForService(service.slug).map((loc) => ({
   label: `${service.name} in ${loc.city}, ${loc.region}`,
   href: locationServiceUrl(loc.slug, service.slug),
+}));
+
+// Sub-services in this category (req #5) — e.g. all HVAC services.
+const subServiceLinks = subServicesForCategory(service.slug).map((sub) => ({
+  label: sub.name,
+  href: subServiceUrl(service.slug, sub.slug),
+  description: sub.tagline,
 }));
 
 // "Related services" — curated siblings, backfilled.
@@ -74,6 +81,7 @@ const serviceSchema = {
       <slot />
     </div>
 
+    <InternalLinks title={`${service.name} services`} links={subServiceLinks} />
     <InternalLinks title="Available in these areas" links={areaLinks} />
     <InternalLinks title="Related services" links={relatedLinks} />
 

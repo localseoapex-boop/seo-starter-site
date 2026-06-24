@@ -62,7 +62,7 @@ export const services: Service[] = [
       'Repiping and remodels',
       '24/7 emergency plumbing',
     ],
-    related: ['drain-cleaning', 'hvac', 'electrical'],
+    related: ['drains', 'hvac', 'electrical'],
   },
   {
     slug: 'electrical',
@@ -83,14 +83,16 @@ export const services: Service[] = [
     related: ['hvac', 'plumbing', 'insulation'],
   },
   {
-    slug: 'drain-cleaning',
-    name: 'Drain Cleaning',
+    // Renamed from 'drain-cleaning' to 'drains' so it reads as a CATEGORY that
+    // contains sub-services (Drain Cleaning, Sewer Line Repair, Hydro Jetting, …).
+    slug: 'drains',
+    name: 'Drains',
     schemaType: 'Plumber',
-    tagline: 'Fast clog removal and drain maintenance.',
+    tagline: 'Drain and sewer cleaning, repair, and inspection.',
     description:
-      'Professional drain cleaning and clog removal — kitchen, bathroom, and main sewer lines.',
+      'Professional drain and sewer services — drain cleaning, clog removal, sewer line repair, and camera inspection.',
     intro:
-      'A slow or backed-up drain can quickly become a mess. We clear clogs fast and use camera inspection to find the root cause.',
+      'A slow or backed-up drain can quickly become a mess. We clear clogs fast and use camera inspection to find the root cause — from a single sink to the main sewer line.',
     features: [
       'Kitchen and bathroom drains',
       'Main sewer line clearing',

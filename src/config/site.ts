@@ -55,9 +55,10 @@ export const FOOTER_LINKS = [
   {
     title: 'Services',
     links: [
-      { label: 'Plumbing', href: '/services/plumbing' },
       { label: 'HVAC', href: '/services/hvac' },
+      { label: 'Plumbing', href: '/services/plumbing' },
       { label: 'Electrical', href: '/services/electrical' },
+      { label: 'Drains', href: '/services/drains' },
     ],
   },
   {
